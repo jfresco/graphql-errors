@@ -1,7 +1,7 @@
 {
-  "name": "graphql-errors",
-  "version": "2.1.0",
-  "description": "Better error handling for GraphQL",
+  "name": "graphql-interceptor",
+  "version": "0.1.0",
+  "description": "Intercept GraphQL resolver functions for logging or whatever you want",
   "main": "./dist/",
   "options": {
     "mocha": "--require scripts/mocha_runner lib/**/__tests__/**/*.js"
@@ -15,17 +15,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kadirahq/graphql-errors.git"
+    "url": "git+https://github.com/restorando/graphql-interceptor.git"
   },
   "keywords": [
     "graphql"
   ],
-  "author": "Kadira Inc.",
+  "author": "Restorando",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kadirahq/graphql-errors/issues"
+    "url": "https://github.com/restorando/graphql-interceptor/issues"
   },
-  "homepage": "https://github.com/kadirahq/graphql-errors#readme",
+  "homepage": "https://github.com/restorando/graphql-interceptor#readme",
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-core": "^6.8.0",

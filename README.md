@@ -1,12 +1,15 @@
-# GraphQL Errors
+# GraphQL Interceptor
 
-When an error occurs when processing GraphQL queries, [graphql-js](https://github.com/graphql/graphql-js) sends the complete error message to the client with the response. In most cases, sending error messages to the client without supervision is not recommended. The `graphql-errors` module fixes this issue by masking error messages sent to the client. This module intercepts GraphQL error messages and replaces them with `"internal error"`.
+Intercepts all upper level resolvers on a [graphql-js](https://github.com/graphql/graphql-js) server.
+Useful for logging, metrics, modify responses, etc.
+
+Forked from https://github.com/kadirahq/graphql-errors
 
 ``` javascript
 var express = require('express');
 var graphql = require('graphql');
 var graphqlHTTP = require('express-graphql');
-var maskErrors = require('graphql-errors').maskErrors;
+var interceptResolvers = require('graphql-interceptor').interceptResolvers;
 
 var schema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
@@ -22,12 +25,18 @@ var schema = new graphql.GraphQLSchema({
   }),
 });
 
-// mask error messages
-maskErrors(schema);
+function errorHandler(error) {
+  console.error(error)
+}
+
+function successHandler() {
+  console.log('OK')
+}
+
+// wrap upper level resolvers
+interceptResolvers(schema, errorHandler, successHandler);
 
 var app = express();
 app.use('/', graphqlHTTP({schema: schema}));
 app.listen(3000);
 ```
-
-To make error debugging easier, it logs the error on the server with the stack. The module can be activated on a schema using its `processSchema` function.
